@@ -171,7 +171,7 @@ class Game:
         for i in range(self.populationSize):
             player=Player()
             position = random.randint(0, len(setup1.dna))
-            if not already.get(position):
+            if not already.get(position) or position>=2:
                 already[position] = True
                 if random.randint(0, 100) > 50:
                     player.dna = setup1.dna[0:position] + setup2.dna[position:]        
@@ -181,7 +181,7 @@ class Game:
                     population.append(player)
                 else:
                     player.dna = setup2.dna[0:position] + setup1.dna[position:]
-                    if random.randint(0, 100) < 10:
+                    if random.randint(0, 100) < self.mutatescore:
                         index = random.randint(0, len(player.dna) - 1)
                         player.dna[index] = setup2.createSetup(self)[0]
                     population.append(player)
